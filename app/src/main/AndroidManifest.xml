@@ -13,6 +13,21 @@
         android:theme="@style/Theme.LifeLinker"
         tools:targetApi="31">
         <activity
+            android:name=".Age"
+            android:exported="false"
+            android:label="@string/title_activity_age"
+            android:theme="@style/Theme.LifeLinker" />
+        <activity
+            android:name=".Option"
+            android:exported="false"
+            android:label="@string/title_activity_option"
+            android:theme="@style/Theme.LifeLinker" />
+        <activity
+            android:name=".BasicInfo"
+            android:exported="false"
+            android:label="@string/title_activity_basic_info"
+            android:theme="@style/Theme.LifeLinker" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
