@@ -1,10 +1,13 @@
 package tw.edu.pu.csim.s1120053.lifelinker
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,12 +15,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -41,6 +47,8 @@ class Option : ComponentActivity() {
 }
 @Composable  //2選項頁
 fun Option(modifier: Modifier) {
+    val context = LocalContext.current  //取得App的運行環境
+    val activity = (context as Activity)  //取得App運行的活動
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column {
             Row {
@@ -50,6 +58,10 @@ fun Option(modifier: Modifier) {
                         contentDescription = "輪椅",
                         modifier = Modifier
                             .size(150.dp)
+                            .clickable {
+                                val intent = Intent(context, BasicInfo::class.java)
+                                context.startActivity(intent)
+                            }
                     )
                     Text(
                         text = "輪椅",
@@ -64,9 +76,13 @@ fun Option(modifier: Modifier) {
                 Column {
                     Image(
                         painter = painterResource(id = R.drawable.walkingaid),
-                        contentDescription = "輪椅",
+                        contentDescription = "助行器",
                         modifier = Modifier
                             .size(150.dp)
+                            .clickable {
+                                val intent = Intent(context, BasicInfo::class.java)
+                                context.startActivity(intent)
+                            }
                     )
                     Text(
                         text = "助行器",
@@ -83,9 +99,13 @@ fun Option(modifier: Modifier) {
                 Column {
                     Image(
                         painter = painterResource(id = R.drawable.crutch),
-                        contentDescription = "輪椅",
+                        contentDescription = "拐杖",
                         modifier = Modifier
-                            .size(150.dp)
+                             .size(150.dp)
+                             .clickable {
+                                val intent = Intent(context, BasicInfo::class.java)
+                                context.startActivity(intent)
+                            }
                     )
                     Text(
                         text = "拐杖",

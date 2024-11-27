@@ -1,7 +1,9 @@
 package tw.edu.pu.csim.s1120053.lifelinker
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import androidx.compose.material3.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.SemanticsActions.OnClick
 import androidx.compose.ui.text.font.Font
@@ -54,25 +58,27 @@ class MainActivity : ComponentActivity() {
 
 @Composable  //1logo頁
 fun Logo(modifier: Modifier) {
+    val context = LocalContext.current
+    val activity = (context as Activity)
 //    val Button
     Image(
         painter = painterResource(id = R.drawable.logo),
         contentDescription = "logo",
         modifier = Modifier
     )
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(Color.Cyan),
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    )
-//    {
-//        Button(
-//            onClick = {
-//            }
-//        ) {
-//            Text(text = "加1")
-//        }
-//    }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TextButton(
+            modifier = Modifier.padding(bottom = 16.dp),
+            onClick = {
+                val intent = Intent(context, Option::class.java)
+                context.startActivity(intent)
+            }
+        ) {
+            Text(text = "點擊進入")
+        }
+    }
 }
