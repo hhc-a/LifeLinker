@@ -13,6 +13,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -42,7 +46,41 @@ class BasicInfo : ComponentActivity() {
         }
     }
 }
-
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EconomicDropdown() {
+    val economicOptions = listOf("一般", "低收", "中低收", "身障")
+    var selectedEconomic by remember { mutableStateOf(economicOptions.first()) }
+    var expanded by remember { mutableStateOf(false) }
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+    ) {
+        TextField(
+            value = selectedEconomic,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text("經濟別") },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
+            colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            modifier = Modifier.menuAnchor().fillMaxWidth()
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            economicOptions.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option) },
+                    onClick = {
+                        selectedEconomic = option
+                        expanded = false
+                    }
+                )
+            }
+        }
+    }
+}
 @Composable  //3基本資料
 fun Basic(modifier: Modifier) {
         var userName by remember { mutableStateOf("") }
@@ -96,7 +134,7 @@ fun Basic(modifier: Modifier) {
 //                    (keyboardType = KeyboardType.Password)
             )
 //            身障證明
-//            經濟別
+            EconomicDropdown()
             TextField(
                 value = contactName,
                 onValueChange = { newText ->

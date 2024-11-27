@@ -32,6 +32,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import tw.edu.pu.csim.s1120053.lifelinker.ui.theme.LifeLinkerTheme
 
 class Age : ComponentActivity() {
@@ -47,48 +49,42 @@ class Age : ComponentActivity() {
         }
     }
 }
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Composable
-//fun SexDropdown() {
-//    val context = LocalContext.current
-//    val sexOptions = listOf("男", "女")
-//    var expanded by remember { mutableStateOf(false) }
-//    var selectedSex by remember { mutableStateOf(sexOptions[0]) }
-//
-//    ExposedDropdownMenuBox(
-//        expanded = expanded,
-//        onExpandedChange = { expanded = !expanded },
-//        modifier = Modifier.fillMaxWidth()
-//    ) {
-//        TextField(
-//            value = selectedSex,
-//            onValueChange = {},
-//            readOnly = true,
-//            label = { Text("性別") },
-//            trailingIcon = {
-//                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-//            },
-//            colors = ExposedDropdownMenuDefaults.textFieldColors(),
-//            modifier = Modifier.fillMaxWidth()
-//        )
-//
-//        ExposedDropdownMenu(
-//            expanded = expanded,
-//            onDismissRequest = { expanded = false }
-//        ) {
-//            sexOptions.forEach { option ->
-//                DropdownMenuItem(
-//                    onClick = {
-//                        selectedSex = option
-//                        expanded = false
-//                    }
-//                ) {
-//                    Text(text = option)
-//                }
-//            }
-//        }
-//    }
-//}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SexDropdown() {
+    val sexOptions = listOf("男", "女")
+    var selectedSex by remember { mutableStateOf(sexOptions.first()) }
+    var expanded by remember { mutableStateOf(false) }
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded }
+    ) {
+        TextField(
+            value = selectedSex,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text("性別") },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
+            colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            modifier = Modifier.menuAnchor().fillMaxWidth()
+        )
+
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            sexOptions.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option) },
+                    onClick = {
+                        selectedSex = option
+                        expanded = false
+                    }
+                )
+            }
+        }
+    }
+}
 @Composable  //4進階資料
 fun Age(modifier: Modifier) {
     var sex by remember { mutableStateOf("") }
@@ -105,14 +101,14 @@ fun Age(modifier: Modifier) {
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
             Text("")
-//            SexDropdown()
-            TextField(
-                value = sex,
-                onValueChange = { newText -> sex = newText },
-                modifier = Modifier.fillMaxWidth(),
-                label = { Text("使用者性別") },
-                placeholder = { Text("請輸入使用者性別") }
-            )
+            SexDropdown()
+//            TextField(
+//                value = sex,
+//                onValueChange = { newText -> sex = newText },
+//                modifier = Modifier.fillMaxWidth(),
+//                label = { Text("使用者性別") },
+//                placeholder = { Text("請輸入使用者性別") }
+//            )
             TextField(
                 value = age,
                 onValueChange = { newText -> age = newText },
