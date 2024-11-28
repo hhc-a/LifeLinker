@@ -28,10 +28,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import tw.edu.pu.csim.s1120053.lifelinker.ui.theme.Appointmentsuccessful
 import tw.edu.pu.csim.s1120053.lifelinker.ui.theme.LifeLinkerTheme
 
@@ -62,7 +65,7 @@ fun KindDropdown() {
             value = selectedKind,
             onValueChange = {},
             readOnly = true,
-            label = { Text("借用輔具") },
+            label = { Text("*借用輔具") },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier.menuAnchor().fillMaxWidth()
@@ -103,19 +106,25 @@ fun repair(modifier: Modifier) {
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
             Text("")
+            Text(text = "*為必填",
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    color = Color.Red
+                )
+            )
             KindDropdown()
             TextField(
                 value = date,
                 onValueChange = { newText -> date = newText },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("日期") },
+                label = { Text("*填寫維修日期") },
                 placeholder = { Text("請輸入YYYY/MM/DD") }
             )
             TextField(
                 value = describe,
                 onValueChange = { newText -> describe = newText },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("描述") },
+                label = { Text("*描述") },
                 placeholder = { Text("請描述順壞狀況") }
             )
             Row(

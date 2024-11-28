@@ -35,7 +35,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 import tw.edu.pu.csim.s1120053.lifelinker.ui.theme.Appointmentsuccessful
 import tw.edu.pu.csim.s1120053.lifelinker.ui.theme.LifeLinkerTheme
 
@@ -66,7 +69,7 @@ fun SexDropdown() {
             value = selectedSex,
             onValueChange = {},
             readOnly = true,
-            label = { Text("性別") },
+            label = { Text("*性別") },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier.menuAnchor().fillMaxWidth()
@@ -109,33 +112,32 @@ fun Age(modifier: Modifier) {
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
             Text("")
+            Text(text = "*為必填",
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    color = Color.Red
+                )
+            )
             SexDropdown()
-//            TextField(
-//                value = sex,
-//                onValueChange = { newText -> sex = newText },
-//                modifier = Modifier.fillMaxWidth(),
-//                label = { Text("使用者性別") },
-//                placeholder = { Text("請輸入使用者性別") }
-//            )
             TextField(
                 value = age,
                 onValueChange = { newText -> age = newText },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("使用者年齡") },
+                label = { Text("*使用者年齡") },
                 placeholder = { Text("請輸入使用者年齡") }
             )
             TextField(
                 value = height,
                 onValueChange = { newText -> height = newText },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("使用者身高") },
+                label = { Text("*使用者身高") },
                 placeholder = { Text("請輸入使用者身高") }
             )
             TextField(
                 value = weight,
                 onValueChange = { newText -> weight = newText },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("使用者體重") },
+                label = { Text("*使用者體重") },
                 placeholder = { Text("請輸入使用者體重") }
             )
         }

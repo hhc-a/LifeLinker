@@ -57,7 +57,6 @@ class Appointmentsuccessful : ComponentActivity() {
 fun As(modifier: Modifier) {
     val context = LocalContext.current
     val activity = (context as Activity)
-//    var msg by remember { mutableStateOf("預約成功") }
     Image(
         painter = painterResource(id = R.drawable.bg),
         contentDescription = "bg",

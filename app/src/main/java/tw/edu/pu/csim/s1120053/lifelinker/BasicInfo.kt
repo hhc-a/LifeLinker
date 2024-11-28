@@ -37,11 +37,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import tw.edu.pu.csim.s1120053.lifelinker.ui.theme.LifeLinkerTheme
 
 class BasicInfo : ComponentActivity() {
@@ -71,7 +74,7 @@ class BasicInfo : ComponentActivity() {
             value = selectedEconomic,
             onValueChange = {},
             readOnly = true,
-            label = { Text("經濟別") },
+            label = { Text("*經濟別") },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier.menuAnchor().fillMaxWidth()
@@ -106,7 +109,7 @@ fun Disability() {
             value = selectedEconomic,
             onValueChange = {},
             readOnly = true,
-            label = { Text("身障資格") },
+            label = { Text("*身障資格") },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier.menuAnchor().fillMaxWidth()
@@ -151,13 +154,19 @@ fun Basic(modifier: Modifier) {
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
             Text("")
+            Text(text = "*為必填",
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    color = Color.Red
+                )
+                )
             TextField(
                 value = userName,
                 onValueChange = { newText ->
                     userName = newText
                 },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("使用者姓名") },
+                label = { Text("*使用者姓名") },
                 placeholder = { Text("請輸入使用者姓名") }
             )
             TextField(
@@ -166,7 +175,7 @@ fun Basic(modifier: Modifier) {
                     userTel = newText
                 },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("使用者電話") },
+                label = { Text("*使用者電話") },
                 placeholder = { Text("請輸入使用者電話") }
             )
             TextField(
@@ -175,7 +184,7 @@ fun Basic(modifier: Modifier) {
                     userID = newText
                 },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("使用者身分證或護照號") },
+                label = { Text("*使用者身分證或護照號") },
                 placeholder = { Text(text = "請輸入使用者身分證或護照號") },
             )
             Disability()
@@ -186,7 +195,7 @@ fun Basic(modifier: Modifier) {
                     contactName = newText
                 },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("租借人(聯絡人)姓名") },
+                label = { Text("*租借人(聯絡人)姓名") },
                 placeholder = { Text("請輸入您的姓名") }
             )
             TextField(
@@ -195,7 +204,7 @@ fun Basic(modifier: Modifier) {
                     contactTel = newText
                 },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("租借人(聯絡人)電話") },
+                label = { Text("*租借人(聯絡人)電話") },
                 placeholder = { Text("請輸入您的電話") }
             )
             TextField(
@@ -204,7 +213,7 @@ fun Basic(modifier: Modifier) {
                     contactMail = newText
                 },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("租借人(聯絡人)信箱") },
+                label = { Text("*租借人(聯絡人)信箱") },
                 placeholder = { Text("請輸入您的信箱") }
             )
         }
