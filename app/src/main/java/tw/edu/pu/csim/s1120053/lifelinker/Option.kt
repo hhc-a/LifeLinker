@@ -134,7 +134,7 @@ fun Option(modifier: Modifier) {
                             }
                     )
                     Text(
-                        text = "預約修復",
+                        text = "預約維修",
                         fontFamily = FontFamily(Font(R.font.round)),
                         fontSize = 20.sp,
                         color = Color.Black,

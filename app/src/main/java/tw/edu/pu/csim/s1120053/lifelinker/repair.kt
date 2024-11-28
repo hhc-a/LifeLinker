@@ -87,6 +87,7 @@ fun KindDropdown() {
 @Composable
 fun repair(modifier: Modifier) {
     var describe by remember { mutableStateOf("") }
+    var date by remember { mutableStateOf("") }
     val context = LocalContext.current
     val activity = (context as Activity)
     Image(
@@ -103,6 +104,13 @@ fun repair(modifier: Modifier) {
         ) {
             Text("")
             KindDropdown()
+            TextField(
+                value = date,
+                onValueChange = { newText -> date = newText },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("日期") },
+                placeholder = { Text("請輸入YYYY/MM/DD") }
+            )
             TextField(
                 value = describe,
                 onValueChange = { newText -> describe = newText },

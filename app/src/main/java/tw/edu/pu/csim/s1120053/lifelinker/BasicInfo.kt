@@ -137,7 +137,6 @@ fun Basic(modifier: Modifier) {
         var contactMail by remember { mutableStateOf("") }
         val context = LocalContext.current
         val activity = (context as Activity)
-//        var msg by remember { mutableStateOf("訊息") }
 //    val db = Firebase.firestore
     Image(
         painter = painterResource(id = R.drawable.bg),
@@ -169,8 +168,6 @@ fun Basic(modifier: Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("使用者電話") },
                 placeholder = { Text("請輸入使用者電話") }
-//                keyboardOptions = KeyboardOptions
-//                    (keyboardType = KeyboardType.Number)
             )
             TextField(
                 value = userID,
@@ -180,9 +177,6 @@ fun Basic(modifier: Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("使用者身分證或護照號") },
                 placeholder = { Text(text = "請輸入使用者身分證或護照號") },
-//                visualTransformation = PasswordVisualTransformation(),
-//                keyboardOptions = KeyboardOptions
-//                    (keyboardType = KeyboardType.Password)
             )
             Disability()
             EconomicDropdown()
