@@ -49,6 +49,11 @@ class Option : ComponentActivity() {
 fun Option(modifier: Modifier) {
     val context = LocalContext.current  //取得App的運行環境
     val activity = (context as Activity)  //取得App運行的活動
+    Image(
+        painter = painterResource(id = R.drawable.bg),
+        contentDescription = "bg",
+        modifier = Modifier.fillMaxSize()
+    )
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column {
             Row {
@@ -123,9 +128,13 @@ fun Option(modifier: Modifier) {
                         contentDescription = "輪椅",
                         modifier = Modifier
                             .size(150.dp)
+                            .clickable {
+                                val intent = Intent(context, repair::class.java)
+                                context.startActivity(intent)
+                            }
                     )
                     Text(
-                        text = "修復/歸還",
+                        text = "預約修復",
                         fontFamily = FontFamily(Font(R.font.round)),
                         fontSize = 20.sp,
                         color = Color.Black,

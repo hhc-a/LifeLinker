@@ -2,16 +2,25 @@ package tw.edu.pu.csim.s1120053.lifelinker
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,7 +37,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tw.edu.pu.csim.s1120053.lifelinker.ui.theme.LifeLinkerTheme
@@ -48,8 +59,8 @@ class BasicInfo : ComponentActivity() {
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EconomicDropdown() {
-    val economicOptions = listOf("一般", "低收", "中低收", "身障")
+    fun EconomicDropdown() {
+        val economicOptions = listOf("一般", "低收", "中低收", "身障")
     var selectedEconomic by remember { mutableStateOf(economicOptions.first()) }
     var expanded by remember { mutableStateOf(false) }
     ExposedDropdownMenuBox(
@@ -61,6 +72,41 @@ fun EconomicDropdown() {
             onValueChange = {},
             readOnly = true,
             label = { Text("經濟別") },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
+            colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            modifier = Modifier.menuAnchor().fillMaxWidth()
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            economicOptions.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option) },
+                    onClick = {
+                        selectedEconomic = option
+                        expanded = false
+                    }
+                )
+            }
+        }
+    }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Disability() {
+    val economicOptions = listOf("無證明", "有證明")
+    var selectedEconomic by remember { mutableStateOf(economicOptions.first()) }
+    var expanded by remember { mutableStateOf(false) }
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+    ) {
+        TextField(
+            value = selectedEconomic,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text("身障資格") },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier.menuAnchor().fillMaxWidth()
@@ -93,6 +139,11 @@ fun Basic(modifier: Modifier) {
         val activity = (context as Activity)
 //        var msg by remember { mutableStateOf("訊息") }
 //    val db = Firebase.firestore
+    Image(
+        painter = painterResource(id = R.drawable.bg),
+        contentDescription = "bg",
+        modifier = Modifier.fillMaxSize()
+    )
     Column(
         modifier = Modifier.fillMaxSize(), // 填滿整個螢幕
         verticalArrangement = Arrangement.SpaceBetween // 垂直方向分佈
@@ -133,7 +184,7 @@ fun Basic(modifier: Modifier) {
 //                keyboardOptions = KeyboardOptions
 //                    (keyboardType = KeyboardType.Password)
             )
-//            身障證明
+            Disability()
             EconomicDropdown()
             TextField(
                 value = contactName,

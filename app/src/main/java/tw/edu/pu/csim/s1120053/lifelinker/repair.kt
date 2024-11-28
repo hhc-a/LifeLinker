@@ -10,10 +10,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,22 +29,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.res.painterResource
 import tw.edu.pu.csim.s1120053.lifelinker.ui.theme.Appointmentsuccessful
 import tw.edu.pu.csim.s1120053.lifelinker.ui.theme.LifeLinkerTheme
 
-class Age : ComponentActivity() {
+class repair : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             LifeLinkerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Age(modifier = Modifier.padding(innerPadding))
+                    repair(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -54,19 +50,19 @@ class Age : ComponentActivity() {
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SexDropdown() {
-    val sexOptions = listOf("男", "女")
-    var selectedSex by remember { mutableStateOf(sexOptions.first()) }
+fun KindDropdown() {
+    val kindOptions = listOf("輪椅", "助行器","拐杖")
+    var selectedKind by remember { mutableStateOf(kindOptions.first()) }
     var expanded by remember { mutableStateOf(false) }
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = !expanded }
     ) {
         TextField(
-            value = selectedSex,
+            value = selectedKind,
             onValueChange = {},
             readOnly = true,
-            label = { Text("性別") },
+            label = { Text("借用輔具") },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier.menuAnchor().fillMaxWidth()
@@ -76,11 +72,11 @@ fun SexDropdown() {
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            sexOptions.forEach { option ->
+            kindOptions.forEach { option ->
                 DropdownMenuItem(
                     text = { Text(option) },
                     onClick = {
-                        selectedSex = option
+                        selectedKind = option
                         expanded = false
                     }
                 )
@@ -88,12 +84,9 @@ fun SexDropdown() {
         }
     }
 }
-@Composable  //4進階資料
-fun Age(modifier: Modifier) {
-    var sex by remember { mutableStateOf("") }
-    var age by remember { mutableStateOf("") }
-    var height by remember { mutableStateOf("") }
-    var weight by remember { mutableStateOf("") }
+@Composable
+fun repair(modifier: Modifier) {
+    var describe by remember { mutableStateOf("") }
     val context = LocalContext.current
     val activity = (context as Activity)
     Image(
@@ -109,55 +102,29 @@ fun Age(modifier: Modifier) {
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
             Text("")
-            SexDropdown()
-//            TextField(
-//                value = sex,
-//                onValueChange = { newText -> sex = newText },
-//                modifier = Modifier.fillMaxWidth(),
-//                label = { Text("使用者性別") },
-//                placeholder = { Text("請輸入使用者性別") }
-//            )
+            KindDropdown()
             TextField(
-                value = age,
-                onValueChange = { newText -> age = newText },
+                value = describe,
+                onValueChange = { newText -> describe = newText },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("使用者年齡") },
-                placeholder = { Text("請輸入使用者年齡") }
+                label = { Text("描述") },
+                placeholder = { Text("請描述順壞狀況") }
             )
-            TextField(
-                value = height,
-                onValueChange = { newText -> height = newText },
-                modifier = Modifier.fillMaxWidth(),
-                label = { Text("使用者身高") },
-                placeholder = { Text("請輸入使用者身高") }
-            )
-            TextField(
-                value = weight,
-                onValueChange = { newText -> weight = newText },
-                modifier = Modifier.fillMaxWidth(),
-                label = { Text("使用者體重") },
-                placeholder = { Text("請輸入使用者體重") }
-            )
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Bottom
-        ) {
-            TextButton(
-                onClick = { activity.finish() }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp,end = 16.dp),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.Bottom
             ) {
-                Text(text = "上一頁")
-            }
-            TextButton(
-                onClick = {
-                    val intent = Intent(context, Appointmentsuccessful::class.java)
-                    context.startActivity(intent)
+                TextButton(
+                    onClick = {
+                        val intent = Intent(context, Option()::class.java)
+                        context.startActivity(intent)
+                    }
+                ) {
+                    Text(text = "送出")
                 }
-            ) {
-                Text(text = "送出")
             }
         }
     }

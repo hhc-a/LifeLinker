@@ -3,4 +3,6 @@
     <string name="title_activity_basic_info">BasicInfo</string>
     <string name="title_activity_option">Option</string>
     <string name="title_activity_age">Age</string>
+    <string name="title_activity_appointmentsuccessful">Appointmentsuccessful</string>
+    <string name="title_activity_repair">repair</string>
 </resources>
